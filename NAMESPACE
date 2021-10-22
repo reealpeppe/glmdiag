@@ -1,0 +1,22 @@
+importFrom(stats, fitted, predict, residuals, AIC, terms, update, update.formula,
+	        coef, cooks.distance, hatvalues, influence, nobs, dbinom, density, 
+		dnorm, dpois, model.matrix, pbeta, pbinom, pgamma, pnbinom,
+                ppois, qnorm, qqnorm, quantile, runif)
+importFrom(utils, setTxtProgressBar, txtProgressBar)
+importFrom(VGAM, hatvaluesvlm, pinv.gaussian, pbetabinom)
+importFrom(ggplot2, ggplot, aes, element_text, geom_hline, geom_point, geom_segment, geom_smooth,
+  ggtitle, margin, scale_x_discrete, theme, theme_classic, theme_light, xlab, element_blank, element_rect, geom_abline,
+  geom_line, ylab, geom_text, scale_colour_manual)
+importFrom(gridExtra, grid.arrange)
+export(linkLin, variableOut, influenceDiag, cookDist, DFbeta, leverage, Qresiduals)
+
+S3method(linkLin, glm)
+S3method(linkLin, betareg)
+S3method(linkLin, vglm)
+S3method(influenceDiag, glm)
+S3method(influenceDiag, betareg)
+S3method(influenceDiag, vglm)
+S3method(Qresiduals, glm)
+S3method(Qresiduals, betareg)
+S3method(Qresiduals, vglm)
+S3method(Qresiduals, negbin)

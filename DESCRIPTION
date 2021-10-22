@@ -1,0 +1,14 @@
+Package: glmdiag
+Version: 1.0.0
+Date: 2021-10-31
+Title: A Collection of Graphic Tools for GLM Diagnostics and some
+        Extensions
+Authors@R: person("Giuseppe", "Reale", role = c("aut", "cre"), 
+	email = "giuseppe.reale97@gmail.com")
+Depends: R (>= 3.6.0)
+Description: Provides diagnostic graphic tools for GLMs, beta-binomial regression model (estimated by 'VGAM' package), beta regression model (estimated by 'betareg' package) and negative binomial regression model (estimated by 'MASS' package). Since most of functions implemented in 'glmdiag' already exist in other packages, the aim is to provide the user unique functions that work on regression models previously specified.
+License: GPL (>= 2)
+NeedsCompilation: no
+Author: Giuseppe Reale [aut, cre]
+Maintainer: Giuseppe Reale <giuseppe.reale97@gmail.com>
+Imports: ggplot2, gridExtra, VGAM
