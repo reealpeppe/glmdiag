@@ -24,7 +24,7 @@ influenceDiag.betareg <- function(model, approx = F) {
   hii <- hatvalues(model)
   cookd <- cooks.distance(model)
   
-  out <- list(DFbeta = DFbetas, cookDist = cookd, leverage = hii)
+  out <- list(DFbeta = DFbetas, cookDist = cookd, leverage = hii, full.beta = coef(model))
   attr(out, which = 'class') <- 'influence'
   out
 }

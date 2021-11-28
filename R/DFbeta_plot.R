@@ -1,4 +1,5 @@
-DFbeta_plot <- function(values, var.lab, label.id, n.label.id, xlab, ylab, vjust, hjust, points.size, points.col) { 
+DFbeta_plot <- function(values, centered, var.lab, beta.i, label.id, n.label.id, xlab, 
+                        ylab, main, pos, pch, cex, lcol, lwd, lty, ...) { 
   
   n.obs <- length(values)
   index <- seq_len(n.obs)
@@ -6,26 +7,21 @@ DFbeta_plot <- function(values, var.lab, label.id, n.label.id, xlab, ylab, vjust
   if(missing(label.id)) label.id <- index
   if(missing(n.label.id)) n.label.id <- 2
   if(missing(xlab)) xlab <- 'Index' 
-  if(missing(ylab)) ylab <- "DFbeta" 
-  if(missing(vjust)) vjust <- 0
-  if(missing(hjust)) hjust <- 1.3
-  if(missing(points.size)) points.size <- 1.8
-  if(missing(points.col)) points.col <- 'black'
+  if(missing(ylab)) {if(centered) ylab <- paste('Beta (-i) -', var.lab)
+                    else ylab <- paste('DFbeta -', var.lab)}
+  if(missing(pos)) pos <- 1
+  if(missing(pch)) pch <- 16
+  if(missing(cex)) cex <- 1
+  if(missing(lcol)) lcol <- 2
+  if(missing(lwd)) lwd <- 2
+  if(missing(lty)) lty <- 2
+  if(missing(main)) main <- var.lab
   
-  xlab <- paste0(xlab, '\n')
-  ylab <- paste0(ylab, '\n')
-  
-  
-  DF <- data.frame(values = values, index = index)
-  
-  points.lab <- getMaxIndex(values, label.id, k = n.label.id)
-  p <- ggplot(DF, aes(x = index, y = values)) +
-    geom_point(size = points.size, colour = points.col) +
-    geom_hline(yintercept = 0, col = 2, lty = 2) +
-    geom_text(aes(label = points.lab, hjust = hjust, vjust = vjust)) +
-    ylab(ylab) +
-    xlab(xlab) + 
-    ggtitle(var.lab)
-  
-  suppressWarnings(print(p))
+  lincent <- if(centered) beta.i 
+              else 0
+  points.lab <- getMaxIndex((values - lincent), label.id, k = n.label.id)
+  plot(index, values, xlab = xlab, ylab = ylab, pch = pch, cex = cex, 
+       main = main, ...)
+  text(index, values, label = points.lab, pos = pos)
+  abline(h = lincent, col = lcol, lwd = lwd, lty = lty)
 }

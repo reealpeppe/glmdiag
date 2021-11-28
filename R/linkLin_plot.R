@@ -1,24 +1,14 @@
-linkLin_plot <- function(zeta_eta, smooth = T, xlab, ylab, title, points.size, points.col) {
+linkLin_plot <- function(zeta, eta, smooth, xlab, ylab, main, pch, lcol, lwd, link.name, ...) {
   
   if(missing(xlab)) xlab <- expression(eta)
   if(missing(ylab)) ylab <- 'Z'
-  if(missing(title)) title <- NULL
-  if(missing(points.size)) points.size <- 1
-  if(missing(points.col)) points.col <- 'black'
+  if(missing(main)) main <- paste('Link =', link.name)
+  if(missing(pch)) pch <- 16
+  if(missing(lcol)) lcol <- 2
+  if(missing(lwd)) lwd <- 3
   
-  eta <- zeta_eta$eta
-  zeta <- zeta_eta$zeta
-  
-  p <- ggplot(zeta_eta, aes(x = eta, y = zeta)) +
-    geom_point(size = points.size, colour = points.col) +
-    xlab(xlab) + 
-    ylab(ylab) +
-    theme_light(base_size = 15) +
-    theme( 
-      plot.margin = margin(0.7,0.7,0.7,0.7, "cm")) +
-    ggtitle(title) +
-    if(smooth) geom_smooth(formula = y ~ x, col = "red", method = 'loess') 
-    
-  p
+  plot(eta, zeta, xlab = xlab, ylab = ylab, main = main,
+       pch = pch, ...)
+  if(smooth) lines(loess.smooth(eta, zeta), col = lcol, lwd = lwd)
 
 }

@@ -27,7 +27,7 @@ influenceDiag.vglm <- function(model, approx = F) {
   res <- VGAM::residuals(model, type = 'pearson')[ ,1]
   cookd <- hii * res^2 / (p * (1 - hii)^2)
   
-  out <- list(DFbeta = DFbetas, cookDist = cookd, leverage = hii)
+  out <- list(DFbeta = DFbetas, cookDist = cookd, leverage = hii, full.beta = coef(model))
   attr(out, which = 'class') <- 'influence'
   out
 }

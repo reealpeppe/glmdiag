@@ -1,5 +1,4 @@
-Qresiduals.glm <- function(model, plot.it = T, global.title, qq.xlab, qq.ylab, qq.title, qqline.col, qq.points.size, 
-                       dns.xlab, dns.ylab, dns.title, dns.lines.col) {
+Qresiduals.glm <- function(model, plot.it = T) {
   fam = model$family$family
   
   not.admitted <- c('quasi', 'quasibinomial', 'quasipoisson')
@@ -9,16 +8,12 @@ Qresiduals.glm <- function(model, plot.it = T, global.title, qq.xlab, qq.ylab, q
               Gamma = qresid_gamma(model),
               poisson = qresid_pois(model),
               binomial = qresid_binom(model),
-              inverse.gaussian = qresid_invgauss(model)
+              inverse.gaussian = qresid_invgauss(model),
+              gaussian = qresid_gaussian(model)
   )
   
-  if(plot.it) {
-    if(missing(global.title)) global.title <- 'Quantile residuals'
-    plots <- qres_plot(qres, qq.xlab, qq.ylab, qq.title, qqline.col, qq.points.size, 
-                       dns.xlab, dns.ylab, dns.title, dns.lines.col)
-    p <- grid.arrange(plots$density.plot, plots$QQplot, ncol = 2, top = global.title)
-    p
-  }
+  if(plot.it) qres_plot(qres)
+  
   return(invisible(qres))
 }
 

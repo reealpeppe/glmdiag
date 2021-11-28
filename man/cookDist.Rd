@@ -8,17 +8,17 @@ Visualize Cook's distances
 Graphical visualization of Cook's distances for each observation within input model.
 }
 \usage{
-cookDist(object, label.id, n.label.id, xlab, ylab, title, vjust, hjust)
+cookDist(object, label.id, n.label.id, xlab, ylab, pos, ...)
 }
 \arguments{
-  \item{object}{object of class 'influence', see Details}
-  \item{label.id}{labels of observations, should be a vector with n elements}
-  \item{n.label.id}{number of observations with highest Cook's distance to label in the plot}
-  \item{xlab}{title for the x axis}
-  \item{ylab}{title for the y axis}
-  \item{title}{an overall title for the plot}
-  \item{vjust}{vertical alignment of labels}
-  \item{hjust}{horizontal alignment of labels}
+  \item{object}{object of class 'influence', see Details.}
+  \item{label.id}{labels of observations, should be a vector with n elements.}
+  \item{n.label.id}{number of observations with highest Cook's distance to label in the plot.}
+  \item{xlab}{title for the x axis.}
+  \item{ylab}{title for the y axis.}
+  \item{pos}{position of observations labels. Values \code{1, 2, 3, 4} respectively indicate below, left, above, right.}
+  \item{...}{further arguments passed to \code{plot}}
+
 
 }
 
@@ -34,11 +34,9 @@ Giuseppe Reale
 }
 
 \examples{
+data("mtcars")
+mod <- glm(mpg ~ cyl + hp + carb, family = Gamma, data = mtcars)
+inf <- influenceDiag(mod)
+cookDist(inf, label.id = rownames(mtcars))
 
-## Cambiare dataset: visualizzazione troppo brutta con questo!
-
-data("moons", package = "glmdiag")
-model <- glm(Moons ~ Distance + Diameter + Mass, family = poisson, data = moons)
-inf <- influenceDiag(model)
-cookDist(inf, n.label.id = 3)
 }

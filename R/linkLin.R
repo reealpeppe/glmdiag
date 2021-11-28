@@ -1,4 +1,4 @@
-linkLin <- function(model, smooth = T, xlab, ylab, title, points.size, points.col) {
+linkLin <- function(model, smooth = T, xlab, ylab, main, pch, lcol, lwd, ...) {
   UseMethod('linkLin')
 }
 

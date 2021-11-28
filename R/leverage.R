@@ -1,35 +1,31 @@
-leverage <- function(object, label.id, n.label.id, xlab, ylab, title, vjust, hjust, points.size, points.col) {
+leverage <- function(object, label.id, n.label.id, xlab, ylab, pos, hline, lcol, lwd, lty, ...) {
   
   if(!inherits(object, 'influence')) stop('cookDist can only be used with object of class', dQuote('influence'), ', see ?influenceDiag')
   
   hii <- object$leverage
   n <- length(hii)
-  index <- 1:n
+  p <- length(object$full.beta)
+  index <- seq_len(n)
   
   if(missing(label.id)) label.id <- index
   if(missing(n.label.id)) n.label.id <- 2
   if(missing(xlab)) xlab <- 'Index' 
   if(missing(ylab)) ylab <- "Leverage" 
-  if(missing(title)) title <- NULL
-  if(missing(vjust)) vjust <- 0
-  if(missing(hjust)) hjust <- 1.5
-  if(missing(points.size)) points.size <- 1.8
-  if(missing(points.col)) points.col <- 'black'
+  if(missing(pos)) pos <- 3
+  if(missing(hline)) hline <- 2 * p/n
+  if(missing(lcol)) lcol <- 2
+  if(missing(lwd)) lwd <- 1.5
+  if(missing(lty)) lty <- 2
   
-  xlab <- paste0(xlab, '\n')
-  ylab <- paste0(ylab, '\n')
   
+
   DF <- data.frame(index = index, hii = hii)
   
-  point.labs <- getMaxIndex(hii, label.id, k = n.label.id)
-  p <- ggplot(DF, mapping = aes(x = index, y = hii)) +
-        geom_point(size = points.size, colour = points.col) +
-        geom_text(aes(label = point.labs, hjust = hjust, vjust = vjust)) +
-          ylab(ylab) +
-          xlab(xlab) +
-          ggtitle(title)
+  points.lab <- getMaxIndex(hii, label.id, k = n.label.id)
+  plot(x = index, y = hii, xlab = xlab, ylab = ylab, ...)
+  text(x = index, y = hii, label = points.lab, pos = pos)
+  abline(h = hline, col = lcol, lwd = lwd, lty = lty)
   
-  suppressWarnings(print(p))
 }
 
 

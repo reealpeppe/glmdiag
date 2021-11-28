@@ -1,9 +1,8 @@
-linkLin.glm <- function(model, smooth = T, xlab, ylab, title, points.size, points.col) {
+linkLin.glm <- function(model, smooth = T, xlab, ylab, main, pch, lcol, lwd, ...) {
   eta <- model$linear.predictor
   wres <- residuals(model, type = "working")
   zeta <- eta + wres
-  DF <- data.frame(zeta = zeta, eta = eta)
-  p <- linkLin_plot(DF, smooth = smooth, xlab, ylab, title, points.size, points.col)
+  link.name <- model$family$link
+  linkLin_plot(zeta, eta, smooth = smooth, xlab, ylab, main, pch, lcol, lwd, link.name, ...)
   
-  p
 }
